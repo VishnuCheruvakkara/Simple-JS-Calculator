@@ -1,0 +1,50 @@
+
+:root{
+    --base-color: rgba(190, 255, 92, 0.625); /* user defined base color*/
+    --calculator-outer: rgba(112, 174, 20, 0.512); /* Default border color */
+    --calculator-inner: rgb(88, 137, 15); /* Default focus border color */
+}
+
+/* body part of the entire calculator */
+.calculator {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: var(--base-color);
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
+    border : 1px solid var(--calculator-outer);
+}
+
+/* display of calculator */
+.calculator .display {
+    font-size: 1.5rem;
+    text-align: right;
+    margin-bottom: 20px;
+    border-radius: 4px ; 
+    background-color: #ffffff ; 
+    border: 1px solid #c6c6c6 ; 
+    width: 100% ; 
+    padding: 10px ; 
+    color: var(--calculator-inner) !important; 
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* handle the display of calculator while on focus : when clicked on that */
+.calculator .display:focus{
+    outline:none;
+    box-shadow:none;
+    border:1px solid  var(--calculator-inner) ;
+}
+
+/* selction part of number inside the display of calculator */
+.calculator .display::selection{
+    background-color: var(--calculator-inner)  ;
+    color:white;
+}
+
+/* Change placeholder text color */
+.calculator .display::placeholder {
+    color:rgba(152, 152, 152, 0.849) ;  
+}
+
