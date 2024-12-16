@@ -27,34 +27,12 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/calculator-project.git
+    git clone https://github.com/VishnuCheruvakkara/Simple-JS-Calculator.git
     ```
-2. Navigate to the project folder:
-    ```bash
-    cd calculator-project
-    ```
-3. Open the **index.html** file in your browser.
+2. Open the **index.html** file in your browser.
 
 ## Demo
 
 You can try out the live version of the calculator on the website here:  
-🌐 [Website Link]  
+🌐 [https://vishnucheruvakkara.github.io/Simple-JS-Calculator/]  
 
-## GitHub Repository
-
-The source code for this project can be found here:  
-👉 [GitHub Repository Link]  
-
-## Contributing
-
-Feel free to fork the repository and submit issues or pull requests. Contributions are welcome!
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
-
-## Future Improvements
-
-- Add advanced features (square roots, powers, etc.)
-- Improve UI/UX with animations and custom themes
-- Implement a history feature to track previous calculations
