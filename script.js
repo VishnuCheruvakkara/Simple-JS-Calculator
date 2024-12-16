@@ -44,56 +44,90 @@ return `rgb(${r}, ${g}, ${b})`;
 document.getElementById('base-color').dispatchEvent(new Event('input'));
 
 ////////////////  Calculator Working Logic ///////////////////////
+
 let currentInput = '';
 let prevInput = '';
 let operation = null;
+let expression = ''; // To store the complete expression for display
+let isResultDisplayed = false; // To track if the result is displayed
 
 function appendNumber(number) {
+    if (isResultDisplayed) {
+        // Reset everything for a new calculation
+        clearDisplay(false); // Clear but retain the result for a new expression
+        currentInput = ''; // Start fresh
+        expression = '';   // Clear expression
+        isResultDisplayed = false; // Reset result display flag
+    }
     currentInput += number;
-    document.getElementById('display').value = currentInput;
+    expression += number;
+    document.getElementById('display').value = expression;
 }
 
 function chooseOperator(op) {
-    if (currentInput === '') return;
-    if (prevInput !== '') {
-        calculateResult();
+    if (isResultDisplayed) {
+        // Use the current result as the starting point for the next operation
+        isResultDisplayed = false;
     }
+
+    if (currentInput === '' && prevInput === '') {
+        // Allow chaining using the result (if any)
+        currentInput = prevInput;
+    }
+
+    if (prevInput !== '' && currentInput !== '') {
+        calculateResult(false); // Calculate intermediate result
+    }
+
     operation = op;
     prevInput = currentInput;
     currentInput = '';
-    document.getElementById('display').value = prevInput + ' ' + operation;
+    expression = prevInput + '' + operation + '';
+    document.getElementById('display').value = expression;
 }
 
-function clearDisplay() {
+function clearDisplay(resetExpression = true) {
     currentInput = '';
     prevInput = '';
     operation = null;
-    document.getElementById('display').value = '';
+    if (resetExpression) {
+        expression = '';
+    }
+    isResultDisplayed = false;
+    document.getElementById('display').value = expression;
 }
 
-function calculateResult() {
+function calculateResult(showFinalResult = true) {
     let result;
-    // Check for division by zero specifically
     if (operation === '/' && currentInput === '0') {
         result = "Syntax Error!";
     } else {
         try {
-            result = eval(prevInput + '' + operation + '' + currentInput);
+            result = eval(prevInput + operation + currentInput);
             if (!isFinite(result)) {
-                result = "Infinity";  // Display 'Infinity' if result is infinity
+                result = "Infinity";
             }
         } catch (error) {
-            result = "Syntax Error";  // Handle invalid syntax
+            result = "Syntax Error!";
         }
     }
-    currentInput = result;
-    operation = null;
-    prevInput = '';
-    document.getElementById('display').value = result;
+
+    currentInput = result.toString();
+    if (showFinalResult) {
+        prevInput = '';
+        operation = null;
+        expression = currentInput; // Show only the result
+        isResultDisplayed = true; // Mark that result is displayed
+    } else {
+        prevInput = currentInput;
+        expression = prevInput; // Keep the intermediate result in expression
+    }
+
+    document.getElementById('display').value = expression;
 }
 
 // Keybinding for the PC number pad
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         calculateResult(); // Equals button press
     } else if (event.key === 'Backspace') {
