@@ -5,6 +5,10 @@
     --calculator-inner: rgb(88, 137, 15); /* Default focus border color */
 }
 
+.calc-name{
+    color:var(--calculator-inner);
+}
+
 /* body part of the entire calculator */
 .calculator {
     max-width: 400px;
